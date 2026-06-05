@@ -2,7 +2,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import RealCardShowcase from "@/components/RealCardShowcase";
+import RealBasketShowcase from "@/components/RealBasketShowcase";
+import { useSiteConfig } from "@/hooks/useSiteConfig";
 import { ChevronRight, Star, TrendingUp, Zap, Award } from "lucide-react";
+import "@/styles/real-card-showcase.css";
+import "@/styles/real-basket-showcase.css";
 
 interface Product {
   id: string;
@@ -140,6 +145,7 @@ const blogPosts = [
 
 export default function Index() {
   const [selectedCategory, setSelectedCategory] = useState("Banners");
+  const siteConfig = useSiteConfig();
 
   const renderStars = (rating: number) => {
     return (
@@ -355,6 +361,9 @@ export default function Index() {
           </div>
         </section>
 
+        {/* Category Showcase - Real Product Images */}
+        {siteConfig.showCardShowcase && <RealCardShowcase />}
+        {siteConfig.showBasketShowcase && <RealBasketShowcase />}
 
         {/* Promotional Banner */}
         <section className="bg-brand-purple text-white py-12 px-4">
