@@ -1,0 +1,46 @@
+{
+  "categories": {
+    "graduation": {
+      "name": "Graduation Baskets",
+      "images": [
+        "/images/baskets/graduation_1.jpg",
+        "/images/baskets/graduation_2.jpg",
+        "/images/baskets/graduation_3.jpg"
+      ]
+    },
+    "fathers": {
+      "name": "Father's Day Baskets",
+      "images": [
+        "/images/baskets/fathers_1.jpg",
+        "/images/baskets/fathers_2.jpg",
+        "/images/baskets/fathers_3.jpg"
+      ]
+    },
+    "birthday": {
+      "name": "Birthday Baskets",
+      "images": [
+        "/images/baskets/birthday_1.jpg",
+        "/images/baskets/birthday_2.jpg",
+        "/images/baskets/birthday_3.jpg"
+      ]
+    },
+    "corporate": {
+      "name": "Corporate Gifts",
+      "images": [
+        "/images/baskets/corporate_1.jpg",
+        "/images/baskets/corporate_2.jpg",
+        "/images/baskets/corporate_3.jpg"
+      ]
+    },
+    "holiday": {
+      "name": "Holiday Baskets",
+      "images": [
+        "/images/baskets/holiday_1.jpg",
+        "/images/baskets/holiday_2.jpg",
+        "/images/baskets/holiday_3.jpg"
+      ]
+    }
+  },
+  "source": "Real product images from gift basket inventory",
+  "note": "All images are actual gift basket products from our collection"
+}

@@ -2,7 +2,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import RealCardShowcase from "@/components/RealCardShowcase";
+import RealBasketShowcase from "@/components/RealBasketShowcase";
+import { useSiteConfig } from "@/hooks/useSiteConfig";
 import { ChevronRight, Star, TrendingUp, Zap, Award } from "lucide-react";
+import "@/styles/real-card-showcase.css";
+import "@/styles/real-basket-showcase.css";
 
 interface Product {
   id: string;
@@ -140,6 +145,7 @@ const blogPosts = [
 
 export default function Index() {
   const [selectedCategory, setSelectedCategory] = useState("Banners");
+  const siteConfig = useSiteConfig();
 
   const renderStars = (rating: number) => {
     return (
@@ -355,34 +361,9 @@ export default function Index() {
           </div>
         </section>
 
-        {/* Bestsellers Grid */}
-        <section className="py-16 px-4 bg-gray-50">
-          <div className="max-w-7xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold mb-12">
-              Handpicked Bestsellers to Impress Your Customers
-            </h2>
-
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-              {bestSellerCategories.map((category, index) => (
-                <Link
-                  key={index}
-                  to={`/category/${category.name.toLowerCase().replace(/\s+/g, "-")}`}
-                  className="group rounded-xl overflow-hidden bg-white border border-gray-200 hover:shadow-lg transition"
-                >
-                  <div className="h-48 bg-gray-100 flex items-center justify-center overflow-hidden group-hover:scale-110 transition">
-                    <img src={category.image} alt={category.name} className="w-full h-full object-cover" onError={(e) => {e.currentTarget.src = '/assets/images/a101_bbclc01_1_us.jpg'}} />
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-bold text-gray-900 group-hover:text-brand-orange transition">
-                      {category.name}
-                    </h3>
-                    <p className="text-sm text-gray-600">Shop Now →</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* Category Showcase - Site-Specific */}
+        {siteConfig.showCardShowcase && <RealCardShowcase />}
+        {siteConfig.showBasketShowcase && <RealBasketShowcase />}
 
         {/* Promotional Banner */}
         <section className="bg-brand-purple text-white py-12 px-4">
