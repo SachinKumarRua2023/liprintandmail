@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "vite",
     "build": "npm run build:client && npm run build:server",
-    "build:client": "vite build",
+    "build:client": "vite build && npm run copy:assets",
+    "copy:assets": "node -e \"const fs=require('fs'); const path=require('path'); const src='public'; const dest='dist/spa'; if(!fs.existsSync(dest)) fs.mkdirSync(dest, {recursive:true}); fs.cpSync(src, dest, {recursive:true, force:true});\"",
     "build:server": "vite build --config vite.config.server.ts",
     "start": "node dist/server/node-build.mjs",
     "test": "vitest --run",
