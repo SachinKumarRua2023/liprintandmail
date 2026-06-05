@@ -121,8 +121,7 @@ export default function Header() {
       <div className="bg-brand-orange text-white py-3 px-4">
         <div className="max-w-7xl mx-auto text-center text-sm">
           <span className="inline-block">
-            📦 Free Super Saver Shipping over $99 | 🎉 Up to 25% OFF | Use Code:
-            PROMO
+            📦 Free Shipping over $99 | 📞 Call: (917) 338-7086 | 🎉 Premium Quality Guaranteed
           </span>
         </div>
       </div>
@@ -135,9 +134,10 @@ export default function Header() {
             {/* Logo */}
             <Link
               to="/"
-              className="text-2xl font-bold text-brand-orange flex-shrink-0"
+              className="text-2xl font-bold text-brand-orange flex-shrink-0 flex flex-col"
             >
-              BannerBuzz
+              <span>LiPrintandMail</span>
+              <span className="text-xs font-normal text-gray-600">Premium Printing & Signage</span>
             </Link>
 
             {/* Search Bar - Hidden on Mobile */}

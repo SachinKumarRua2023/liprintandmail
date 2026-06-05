@@ -44,29 +44,29 @@ export default function Footer() {
             <h4 className="font-bold text-white mb-6">Get In Touch</h4>
             <div className="space-y-4">
               <a
-                href="tel:800-580-4489"
+                href="tel:917-338-7086"
                 className="flex items-start gap-3 group"
               >
                 <Phone size={20} className="flex-shrink-0 mt-1" />
                 <div>
-                  <p className="font-semibold">800-580-4489</p>
-                  <p className="text-sm text-gray-400">24/7 Support</p>
+                  <p className="font-semibold">(917) 338-7086</p>
+                  <p className="text-sm text-gray-400">Call us Monday-Friday 9AM-6PM</p>
                 </div>
               </a>
-              <a href="mailto:support@bannerbuzz.com" className="flex items-start gap-3">
+              <a href="mailto:countrycomeinc@gmail.com" className="flex items-start gap-3">
                 <Mail size={20} className="flex-shrink-0 mt-1" />
                 <div>
-                  <p className="font-semibold">support@bannerbuzz.com</p>
+                  <p className="font-semibold">countrycomeinc@gmail.com</p>
                   <p className="text-sm text-gray-400">Email us anytime</p>
                 </div>
               </a>
-              <Link to="/" className="flex items-start gap-3">
+              <div className="flex items-start gap-3">
                 <HelpCircle size={20} className="flex-shrink-0 mt-1" />
                 <div>
-                  <p className="font-semibold">Help & FAQs</p>
-                  <p className="text-sm text-gray-400">Find answers</p>
+                  <p className="font-semibold">605 Old Country Road</p>
+                  <p className="text-sm text-gray-400">Plainview, NY 11803</p>
                 </div>
-              </Link>
+              </div>
             </div>
           </div>
 
