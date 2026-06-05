@@ -1,20 +1,118 @@
 import { Link } from "react-router-dom";
-import { Search, ShoppingCart, Phone, User, Menu, X } from "lucide-react";
+import { Search, ShoppingCart, Phone, User, Menu, X, ChevronDown } from "lucide-react";
 import { useState } from "react";
+
+interface CategoryDropdown {
+  name: string;
+  subcategories: string[];
+}
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
-  const categories = [
-    "Banners",
-    "Stands & Displays",
-    "Table Covers",
-    "Custom Flags",
-    "LED Signs",
-    "Custom Signs",
-    "Trade Show",
-    "Marketing",
-    "Accessories",
+  const categories: CategoryDropdown[] = [
+    {
+      name: "Banners",
+      subcategories: [
+        "Vinyl Banners",
+        "Fabric Banners",
+        "Mesh Banners",
+        "Pole Banners",
+        "Step & Repeat",
+        "Canvas Banners",
+        "Indoor Banners",
+        "Outdoor Banners",
+      ],
+    },
+    {
+      name: "Stands & Displays",
+      subcategories: [
+        "Banner Stands",
+        "A-Frame Stands",
+        "Pop-up Displays",
+        "Roll-up Banners",
+        "Easels",
+        "Display Boards",
+        "Tripod Stands",
+        "Retractable Banners",
+      ],
+    },
+    {
+      name: "Table Covers",
+      subcategories: [
+        "Stretch Table Covers",
+        "Fitted Covers",
+        "Non-Fitted Covers",
+        "Table Runners",
+        "Custom Printed Covers",
+        "Trade Show Covers",
+      ],
+    },
+    {
+      name: "Custom Flags",
+      subcategories: [
+        "Rectangle Flags",
+        "Feather Flags",
+        "Teardrop Flags",
+        "Car Flags",
+        "Beach Flags",
+        "Custom Flags",
+      ],
+    },
+    {
+      name: "LED Signs",
+      subcategories: [
+        "LED Neon Signs",
+        "Custom LED Signs",
+        "Digital Display Boards",
+        "LED Light Boxes",
+        "Programmable Signs",
+      ],
+    },
+    {
+      name: "Custom Signs",
+      subcategories: [
+        "Vinyl Decals",
+        "Window Signs",
+        "Door Signs",
+        "Corrugated Signs",
+        "A-Frame Signs",
+        "Wall Signs",
+      ],
+    },
+    {
+      name: "Trade Show",
+      subcategories: [
+        "Trade Show Displays",
+        "Booth Kits",
+        "Canopy Tents",
+        "Promotional Counters",
+        "Display Backdrops",
+        "Shelf Talkers",
+      ],
+    },
+    {
+      name: "Marketing",
+      subcategories: [
+        "Flyers",
+        "Postcards",
+        "Business Cards",
+        "Promotional Items",
+        "Stickers",
+        "Labels",
+      ],
+    },
+    {
+      name: "Accessories",
+      subcategories: [
+        "Hardware",
+        "Installation Tools",
+        "Display Stands",
+        "Clips & Grommets",
+        "Carries Cases",
+      ],
+    },
   ];
 
   return (
@@ -100,30 +198,89 @@ export default function Header() {
         {/* Navigation Menu */}
         <nav className="border-t border-gray-200">
           <div className="max-w-7xl mx-auto px-4">
-            <div className="hidden md:flex overflow-x-auto py-0">
+            <div className="hidden md:flex">
               {categories.map((category) => (
-                <Link
-                  key={category}
-                  to={`/category/${category.toLowerCase().replace(/\s+/g, "-")}`}
-                  className="px-4 py-3 text-sm font-medium text-gray-700 hover:text-brand-orange hover:border-b-2 hover:border-brand-orange transition whitespace-nowrap"
+                <div
+                  key={category.name}
+                  className="relative group"
+                  onMouseEnter={() => setActiveDropdown(category.name)}
+                  onMouseLeave={() => setActiveDropdown(null)}
                 >
-                  {category}
-                </Link>
+                  <button className="px-4 py-3 text-sm font-medium text-gray-700 hover:text-brand-orange transition whitespace-nowrap flex items-center gap-1 group-hover:border-b-2 group-hover:border-brand-orange">
+                    {category.name}
+                    <ChevronDown size={16} className="opacity-50" />
+                  </button>
+
+                  {/* Dropdown Menu */}
+                  <div className="absolute left-0 mt-0 w-56 bg-white border border-gray-200 shadow-lg rounded-b-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <div className="p-4">
+                      <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">
+                        {category.name}
+                      </h3>
+                      <ul className="space-y-2">
+                        {category.subcategories.map((subcategory) => (
+                          <li key={subcategory}>
+                            <Link
+                              to={`/category/${subcategory.toLowerCase().replace(/\s+/g, "-")}`}
+                              className="block text-sm text-gray-700 hover:text-brand-orange hover:font-semibold transition py-1"
+                            >
+                              {subcategory}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="border-t border-gray-200 p-4 bg-gray-50 rounded-b-lg">
+                      <Link
+                        to={`/category/${category.name.toLowerCase().replace(/\s+/g, "-")}`}
+                        className="text-sm font-semibold text-brand-orange hover:opacity-70 transition inline-flex items-center gap-1"
+                      >
+                        View All {category.name} →
+                      </Link>
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
 
             {/* Mobile Menu */}
             {isMenuOpen && (
-              <div className="md:hidden py-4 space-y-2">
+              <div className="md:hidden py-4 space-y-4">
                 {categories.map((category) => (
-                  <Link
-                    key={category}
-                    to={`/category/${category.toLowerCase().replace(/\s+/g, "-")}`}
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-brand-orange rounded transition"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {category}
-                  </Link>
+                  <div key={category.name}>
+                    <button
+                      onClick={() =>
+                        setActiveDropdown(
+                          activeDropdown === category.name ? null : category.name
+                        )
+                      }
+                      className="w-full text-left px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-brand-orange rounded transition flex items-center justify-between"
+                    >
+                      {category.name}
+                      <ChevronDown
+                        size={16}
+                        className={`transition-transform ${
+                          activeDropdown === category.name ? "rotate-180" : ""
+                        }`}
+                      />
+                    </button>
+
+                    {/* Mobile Dropdown */}
+                    {activeDropdown === category.name && (
+                      <div className="pl-4 space-y-2 mt-2">
+                        {category.subcategories.map((subcategory) => (
+                          <Link
+                            key={subcategory}
+                            to={`/category/${subcategory.toLowerCase().replace(/\s+/g, "-")}`}
+                            className="block text-sm text-gray-600 hover:text-brand-orange py-1"
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            {subcategory}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 ))}
               </div>
             )}
