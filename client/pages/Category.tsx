@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Star, Phone, Palette, Mail } from "lucide-react";
 
 export default function Category() {
   const { category } = useParams();
@@ -64,22 +64,22 @@ export default function Category() {
 
               <ul className="text-left space-y-3 mb-8 inline-block">
                 <li className="flex items-center gap-3">
-                  <span className="text-2xl">✨</span>
+                  <Star size={24} className="text-white flex-shrink-0" />
                   <span>Browse our featured products on the homepage</span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <span className="text-2xl">📞</span>
+                  <Phone size={24} className="text-white flex-shrink-0" />
                   <span>
-                    Call our team at <strong>800-580-4489</strong> for product
+                    Call our team at <strong>917-338-7086</strong> for product
                     advice
                   </span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <span className="text-2xl">🎨</span>
+                  <Palette size={24} className="text-white flex-shrink-0" />
                   <span>Start customizing with our design tool</span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <span className="text-2xl">📧</span>
+                  <Mail size={24} className="text-white flex-shrink-0" />
                   <span>Email us for bulk quotes and business inquiries</span>
                 </li>
               </ul>
@@ -92,7 +92,7 @@ export default function Category() {
                   Back to Home
                 </a>
                 <a
-                  href="tel:800-580-4489"
+                  href="tel:917-338-7086"
                   className="px-8 py-3 border-2 border-white text-white rounded-lg font-bold hover:bg-white hover:text-brand-orange transition inline-block"
                 >
                   Call Us Now

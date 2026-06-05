@@ -21,7 +21,7 @@ export default function NotFound() {
           <div className="space-y-4">
             <p className="text-gray-600">
               Keep an eye on this space! We're constantly adding new products and
-              features to BannerBuzz.
+              features to LiPrintandMail.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -32,10 +32,10 @@ export default function NotFound() {
                 Back to Home
               </Link>
               <a
-                href="tel:800-580-4489"
+                href="tel:917-338-7086"
                 className="px-8 py-3 border-2 border-brand-orange text-brand-orange rounded-lg font-bold hover:bg-brand-orange hover:text-white transition"
               >
-                Call Us: 800-580-4489
+                Call Us: 917-338-7086
               </a>
             </div>
           </div>

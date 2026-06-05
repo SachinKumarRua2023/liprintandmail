@@ -156,7 +156,7 @@ export default function Header() {
             <div className="hidden sm:flex items-center gap-6">
               <button className="flex items-center gap-2 text-sm hover:text-brand-orange transition">
                 <Phone size={18} />
-                <span className="font-semibold">800-580-4489</span>
+                <span className="font-semibold">917-338-7086</span>
               </button>
 
               <button className="flex items-center gap-2 text-sm hover:text-brand-orange transition">

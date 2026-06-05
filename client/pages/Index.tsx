@@ -21,7 +21,7 @@ const heroProducts: Product[] = [
     rating: 4.2,
     reviews: 693,
     startingPrice: "$6.00",
-    image: "📌",
+    image: "/assets/images/a101_bbclc01_1_us.jpg",
     badge: "Popular",
   },
   {
@@ -30,7 +30,7 @@ const heroProducts: Product[] = [
     rating: 4.6,
     reviews: 330,
     startingPrice: "$6.99",
-    image: "🎨",
+    image: "/assets/images/a101_bbcm01_1_us.jpg",
   },
   {
     id: "3",
@@ -38,7 +38,7 @@ const heroProducts: Product[] = [
     rating: 4.8,
     reviews: 302,
     startingPrice: "$249.00",
-    image: "💡",
+    image: "/assets/images/a101_bbdh01_1_us.jpg",
     badge: "Trending",
   },
   {
@@ -47,7 +47,7 @@ const heroProducts: Product[] = [
     rating: 4.4,
     reviews: 470,
     startingPrice: "$29.99",
-    image: "📽️",
+    image: "/assets/images/a101_bbevt01_1_us.jpg",
   },
   {
     id: "5",
@@ -55,7 +55,7 @@ const heroProducts: Product[] = [
     rating: 4.5,
     reviews: 285,
     startingPrice: "$19.99",
-    image: "🪑",
+    image: "/assets/images/a101_bbly01_1_us.jpg",
   },
 ];
 
@@ -66,7 +66,7 @@ const featuredProducts: Product[] = [
     rating: 4.4,
     reviews: 4797,
     startingPrice: "$6.99",
-    image: "🎪",
+    image: "/assets/images/a101_bbnp01_1_us.jpg",
   },
   {
     id: "7",
@@ -74,7 +74,7 @@ const featuredProducts: Product[] = [
     rating: 4.5,
     reviews: 1688,
     startingPrice: "$6.99",
-    image: "🏞️",
+    image: "/assets/images/a101_bbosc01_1_us.jpg",
   },
   {
     id: "8",
@@ -82,7 +82,7 @@ const featuredProducts: Product[] = [
     rating: 4.2,
     reviews: 165,
     startingPrice: "$6.99",
-    image: "🚩",
+    image: "/assets/images/a101_bbpklb01_1_us.jpg",
   },
   {
     id: "9",
@@ -90,7 +90,7 @@ const featuredProducts: Product[] = [
     rating: 4.4,
     reviews: 862,
     startingPrice: "$6.99",
-    image: "🎭",
+    image: "/assets/images/a101_bbpst01_1_us.jpg",
   },
   {
     id: "10",
@@ -98,17 +98,17 @@ const featuredProducts: Product[] = [
     rating: 4.3,
     reviews: 456,
     startingPrice: "$15.99",
-    image: "🖼️",
+    image: "/assets/images/a101_bbrc01_1_us.jpg",
   },
 ];
 
 const bestSellerCategories = [
-  { name: "Custom Flags", icon: "🚩" },
-  { name: "Vinyl Banners", icon: "📋" },
-  { name: "Step & Repeat Displays", icon: "🎬" },
-  { name: "Canopy Tents", icon: "⛺" },
-  { name: "Window Signs", icon: "🪟" },
-  { name: "Table Covers", icon: "🪑" },
+  { name: "Custom Flags", image: "/assets/images/a101_bbly01_1_us.jpg" },
+  { name: "Vinyl Banners", image: "/assets/images/a101_bbclc01_1_us.jpg" },
+  { name: "Step & Repeat Displays", image: "/assets/images/a101_bbpklb01_1_us.jpg" },
+  { name: "Canopy Tents", image: "/assets/images/a101_bbosc01_1_us.jpg" },
+  { name: "Window Signs", image: "/assets/images/a101_bbdh01_1_us.jpg" },
+  { name: "Table Covers", image: "/assets/images/a101_bbtc01_1_us.jpg" },
 ];
 
 const blogPosts = [
@@ -118,7 +118,7 @@ const blogPosts = [
     title: "5 Essential Tips for Outdoor Event Signage",
     excerpt:
       "Learn how to choose the perfect signage for your outdoor events to maximize visibility and impact.",
-    image: "📸",
+    image: "/assets/images/a101_bbsbc01_1_us.jpg",
   },
   {
     id: "2",
@@ -126,7 +126,7 @@ const blogPosts = [
     title: "Trade Show Display Ideas for Maximum Engagement",
     excerpt:
       "Discover innovative ways to make your booth stand out and attract more visitors.",
-    image: "🎪",
+    image: "/assets/images/a101_bbsks01_1_us.jpg",
   },
   {
     id: "3",
@@ -134,7 +134,7 @@ const blogPosts = [
     title: "Custom Banners: The Perfect Marketing Tool",
     excerpt:
       "Understand why custom banners are essential for your brand awareness strategy.",
-    image: "📢",
+    image: "/assets/images/a101_bbspc01_1_us.jpg",
   },
 ];
 
@@ -246,8 +246,8 @@ export default function Index() {
                     </div>
                   )}
 
-                  <div className="h-32 bg-gradient-to-br from-brand-orange to-brand-orange-dark flex items-center justify-center text-6xl">
-                    {product.image}
+                  <div className="h-32 bg-gray-100 flex items-center justify-center overflow-hidden">
+                    <img src={product.image} alt={product.name} className="w-full h-full object-cover" onError={(e) => {e.currentTarget.src = '/assets/images/a101_bbclc01_1_us.jpg'}} />
                   </div>
 
                   <div className="p-4">
@@ -330,8 +330,8 @@ export default function Index() {
                   key={product.id}
                   className="group hover:shadow-lg transition rounded-xl overflow-hidden bg-white border border-gray-200"
                 >
-                  <div className="h-32 bg-gradient-to-br from-brand-purple to-brand-orange flex items-center justify-center text-6xl group-hover:scale-110 transition">
-                    {product.image}
+                  <div className="h-32 bg-gray-100 flex items-center justify-center overflow-hidden group-hover:scale-110 transition">
+                    <img src={product.image} alt={product.name} className="w-full h-full object-cover" onError={(e) => {e.currentTarget.src = '/assets/images/a101_bbnp01_1_us.jpg'}} />
                   </div>
 
                   <div className="p-4">
@@ -369,8 +369,8 @@ export default function Index() {
                   to={`/category/${category.name.toLowerCase().replace(/\s+/g, "-")}`}
                   className="group rounded-xl overflow-hidden bg-white border border-gray-200 hover:shadow-lg transition"
                 >
-                  <div className="h-48 bg-gradient-to-br from-brand-orange via-brand-orange-dark to-brand-purple flex items-center justify-center text-7xl group-hover:scale-110 transition">
-                    {category.icon}
+                  <div className="h-48 bg-gray-100 flex items-center justify-center overflow-hidden group-hover:scale-110 transition">
+                    <img src={category.image} alt={category.name} className="w-full h-full object-cover" onError={(e) => {e.currentTarget.src = '/assets/images/a101_bbclc01_1_us.jpg'}} />
                   </div>
                   <div className="p-4">
                     <h3 className="font-bold text-gray-900 group-hover:text-brand-orange transition">
@@ -418,8 +418,8 @@ export default function Index() {
                   key={post.id}
                   className="group rounded-xl overflow-hidden bg-white border border-gray-200 hover:shadow-lg transition"
                 >
-                  <div className="h-48 bg-gradient-to-br from-brand-orange to-brand-orange-dark flex items-center justify-center text-6xl group-hover:scale-110 transition">
-                    {post.image}
+                  <div className="h-48 bg-gray-100 flex items-center justify-center overflow-hidden group-hover:scale-110 transition">
+                    <img src={post.image} alt={post.title} className="w-full h-full object-cover" onError={(e) => {e.currentTarget.src = '/assets/images/a101_bbsbc01_1_us.jpg'}} />
                   </div>
 
                   <div className="p-6">
@@ -455,7 +455,7 @@ export default function Index() {
 
             <div className="space-y-4 text-gray-700 text-left">
               <p>
-                BannerBuzz is your one-stop shop for premium custom banners,
+                LiPrintandMail is your one-stop shop for premium custom banners,
                 signs, and displays. Whether you need vinyl banners for outdoor
                 events, custom flags for your business, LED signs for
                 storefronts, or trade show displays to impress clients, we have
@@ -478,7 +478,7 @@ export default function Index() {
               </p>
 
               <div className="mt-8 pt-8 border-t border-gray-300">
-                <h3 className="text-xl font-bold mb-4">Why Choose BannerBuzz?</h3>
+                <h3 className="text-xl font-bold mb-4">Why Choose LiPrintandMail?</h3>
                 <ul className="space-y-2 text-sm">
                   <li className="flex items-start gap-3">
                     <span className="text-brand-orange font-bold">✓</span>

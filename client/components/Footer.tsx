@@ -53,10 +53,10 @@ export default function Footer() {
                   <p className="text-sm text-gray-400">Call us Monday-Friday 9AM-6PM</p>
                 </div>
               </a>
-              <a href="mailto:countrycomeinc@gmail.com" className="flex items-start gap-3">
+              <a href="mailto:sales@longislandconvenience.com" className="flex items-start gap-3">
                 <Mail size={20} className="flex-shrink-0 mt-1" />
                 <div>
-                  <p className="font-semibold">countrycomeinc@gmail.com</p>
+                  <p className="font-semibold">sales@longislandconvenience.com</p>
                   <p className="text-sm text-gray-400">Email us anytime</p>
                 </div>
               </a>
@@ -188,26 +188,29 @@ export default function Footer() {
             {/* Social Links */}
             <div className="flex gap-6 mb-6 md:mb-0">
               <a
-                href="#"
+                href="https://www.facebook.com/share/18qYZZANxx/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-400 hover:text-brand-orange transition"
+                title="Facebook"
               >
                 <Facebook size={20} />
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/longislandprintandmail"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-400 hover:text-brand-orange transition"
-              >
-                <Twitter size={20} />
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-brand-orange transition"
+                title="Instagram"
               >
                 <Instagram size={20} />
               </a>
               <a
-                href="#"
+                href="https://youtube.com/@longislandprintandmail"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-400 hover:text-brand-orange transition"
+                title="YouTube"
               >
                 <Linkedin size={20} />
               </a>
@@ -237,7 +240,7 @@ export default function Footer() {
           {/* Copyright */}
           <div className="text-center text-sm text-gray-500">
             <p className="flex items-center justify-center gap-1">
-              © 2009-2026 BannerBuzz.com All rights reserved | Made with{" "}
+              © {new Date().getFullYear()} LiPrintandMail. All rights reserved | Made with{" "}
               <Heart size={14} className="text-brand-orange" /> for your brand
             </p>
           </div>
