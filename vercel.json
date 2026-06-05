@@ -1,0 +1,17 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist/spa",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+  "env": {
+    "ODOO_URL": "@odoo_url",
+    "ODOO_DATABASE": "@odoo_database",
+    "ODOO_USERNAME": "@odoo_username",
+    "ODOO_PASSWORD": "@odoo_password",
+    "ODOO_API_KEY": "@odoo_api_key"
+  }
+}
