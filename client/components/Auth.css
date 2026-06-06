@@ -22,6 +22,8 @@
 .auth-modal {
   width: 100%;
   max-width: 450px;
+  max-height: 90vh;
+  overflow-y: auto;
   background: white;
   border-radius: 12px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
