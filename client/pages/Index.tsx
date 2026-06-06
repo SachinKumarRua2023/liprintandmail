@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import RealCardShowcase from "@/components/RealCardShowcase";
 import RealBasketShowcase from "@/components/RealBasketShowcase";
+import Auth from "@/components/Auth";
+import Cart from "@/components/Cart";
+import Checkout from "@/components/Checkout";
 import { useSiteConfig } from "@/hooks/useSiteConfig";
 import { ChevronRight, Star, TrendingUp, Zap, Award } from "lucide-react";
 import "@/styles/real-card-showcase.css";
@@ -143,9 +146,79 @@ const blogPosts = [
   },
 ];
 
+interface CartItem {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  image: string;
+}
+
 export default function Index() {
   const [selectedCategory, setSelectedCategory] = useState("Banners");
   const siteConfig = useSiteConfig();
+  const [isAuthOpen, setIsAuthOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  const [user, setUser] = useState<any>(null);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartCount, setCartCount] = useState(0);
+
+  // Load user and cart on mount
+  useEffect(() => {
+    const savedUser = localStorage.getItem('user');
+    const savedCart = localStorage.getItem('cart');
+
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+
+    if (savedCart) {
+      const items = JSON.parse(savedCart);
+      setCartItems(items);
+      setCartCount(items.reduce((sum: number, item: CartItem) => sum + item.quantity, 0));
+    }
+  }, []);
+
+  const handleLogin = (userData: any, token: string) => {
+    setUser(userData);
+    setIsAuthOpen(false);
+  };
+
+  const handleAddToCart = (product: any) => {
+    const existingItem = cartItems.find(item => item.id === product.id);
+
+    if (existingItem) {
+      const updated = cartItems.map(item =>
+        item.id === product.id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      );
+      setCartItems(updated);
+      localStorage.setItem('cart', JSON.stringify(updated));
+    } else {
+      const newItem = {
+        id: product.id,
+        name: product.name,
+        price: parseFloat(product.startingPrice.replace('$', '')),
+        quantity: 1,
+        image: product.image,
+      };
+      const updated = [...cartItems, newItem];
+      setCartItems(updated);
+      localStorage.setItem('cart', JSON.stringify(updated));
+    }
+
+    setCartCount(prev => prev + 1);
+  };
+
+  const handleCheckout = (items: CartItem[]) => {
+    if (!user) {
+      setIsAuthOpen(true);
+      return;
+    }
+    setIsCheckoutOpen(true);
+  };
 
   const renderStars = (rating: number) => {
     return (
@@ -170,7 +243,33 @@ export default function Index() {
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <Header />
+      <Header
+        cartCount={cartCount}
+        onCartClick={() => setIsCartOpen(true)}
+        onAccountClick={() => setIsAuthOpen(true)}
+      />
+
+      {/* Auth Modal */}
+      <Auth
+        isOpen={isAuthOpen}
+        onClose={() => setIsAuthOpen(false)}
+        onLogin={handleLogin}
+      />
+
+      {/* Cart Modal */}
+      <Cart
+        isOpen={isCartOpen}
+        onClose={() => setIsCartOpen(false)}
+        onCheckout={handleCheckout}
+      />
+
+      {/* Checkout Modal */}
+      <Checkout
+        isOpen={isCheckoutOpen}
+        onClose={() => setIsCheckoutOpen(false)}
+        items={cartItems}
+        user={user}
+      />
 
       <main className="flex-1">
         {/* Hero Carousel Section */}
@@ -267,8 +366,14 @@ export default function Index() {
                       {product.startingPrice}
                     </p>
 
-                    <button className="w-full bg-brand-orange text-white py-2 rounded-lg font-semibold hover:bg-brand-orange-dark transition text-sm">
-                      Customize
+                    <button
+                      className="w-full bg-brand-orange text-white py-2 rounded-lg font-semibold hover:bg-brand-orange-dark transition text-sm"
+                      onClick={() => {
+                        handleAddToCart(product);
+                        alert(`${product.name} added to cart!`);
+                      }}
+                    >
+                      Add to Cart
                     </button>
                   </div>
                 </div>
@@ -351,8 +456,14 @@ export default function Index() {
                       {product.startingPrice}
                     </p>
 
-                    <button className="w-full bg-brand-orange text-white py-2 rounded-lg font-semibold hover:bg-brand-orange-dark transition text-sm">
-                      Customize
+                    <button
+                      className="w-full bg-brand-orange text-white py-2 rounded-lg font-semibold hover:bg-brand-orange-dark transition text-sm"
+                      onClick={() => {
+                        handleAddToCart(product);
+                        alert(`${product.name} added to cart!`);
+                      }}
+                    >
+                      Add to Cart
                     </button>
                   </div>
                 </div>

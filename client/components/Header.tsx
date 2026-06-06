@@ -7,7 +7,13 @@ interface CategoryDropdown {
   subcategories: string[];
 }
 
-export default function Header() {
+interface HeaderProps {
+  cartCount?: number;
+  onCartClick?: () => void;
+  onAccountClick?: () => void;
+}
+
+export default function Header({ cartCount = 0, onCartClick, onAccountClick }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
@@ -159,17 +165,25 @@ export default function Header() {
                 <span className="font-semibold">917-338-7086</span>
               </button>
 
-              <button className="flex items-center gap-2 text-sm hover:text-brand-orange transition">
+              <button
+                className="flex items-center gap-2 text-sm hover:text-brand-orange transition"
+                onClick={onAccountClick}
+              >
                 <User size={18} />
                 <span>Account</span>
               </button>
 
-              <button className="relative flex items-center gap-2 text-sm hover:text-brand-orange transition">
+              <button
+                className="relative flex items-center gap-2 text-sm hover:text-brand-orange transition"
+                onClick={onCartClick}
+              >
                 <ShoppingCart size={18} />
                 <span>Cart</span>
-                <span className="absolute -top-2 -right-2 bg-brand-orange text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                  0
-                </span>
+                {cartCount > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-brand-orange text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                    {cartCount}
+                  </span>
+                )}
               </button>
             </div>
 

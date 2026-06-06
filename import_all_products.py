@@ -68,7 +68,7 @@ def process_csv_file(csv_file, category_name):
                     'list_price': price,
                     'standard_price': cost,
                     'description': description,
-                    'type': 'product',
+                    'type': 'consu',
                 }])
 
             # Upload image

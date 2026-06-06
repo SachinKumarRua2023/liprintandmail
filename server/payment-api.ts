@@ -248,6 +248,28 @@ async function createOdooSalesOrder(customerId: number, orderData: OrderData) {
 }
 
 /**
+ * Create order without immediate payment (for bank transfer, etc.)
+ */
+export async function createOrder(orderData: OrderData) {
+  try {
+    const customerId = await createOdooCustomer(orderData.customer);
+    const saleOrder = await createOdooSalesOrder(customerId, orderData);
+
+    return {
+      success: true,
+      orderId: saleOrder.id,
+      message: 'Order created successfully',
+    };
+  } catch (error) {
+    console.error('Error creating order:', error);
+    return {
+      success: false,
+      error: 'Failed to create order'
+    };
+  }
+}
+
+/**
  * Update order payment status in Odoo
  */
 async function updateOdooOrderPaymentStatus(orderId: number, status: 'paid' | 'failed' | 'pending') {
@@ -334,4 +356,5 @@ export default {
   handleStripeWebhook,
   createPayPalOrder,
   capturePayPalOrder,
+  createOrder,
 };

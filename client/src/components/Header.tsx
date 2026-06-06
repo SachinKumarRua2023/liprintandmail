@@ -5,9 +5,10 @@ import './Header.css';
 interface HeaderProps {
   cartCount?: number;
   onCartClick?: () => void;
+  onAccountClick?: () => void;
 }
 
-export function Header({ cartCount = 0, onCartClick }: HeaderProps) {
+export function Header({ cartCount = 0, onCartClick, onAccountClick }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
   return (
@@ -57,14 +58,14 @@ export function Header({ cartCount = 0, onCartClick }: HeaderProps) {
 
           {/* Right Actions */}
           <div className="header-right">
-            <button className="header-btn account-btn">
+            <button className="header-btn account-btn" onClick={onAccountClick}>
               <User size={20} />
               <span>Account</span>
             </button>
             <button className="header-btn cart-btn" onClick={onCartClick}>
               <ShoppingCart size={20} />
               <span>Cart</span>
-              {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
+              {cartCount && cartCount > 0 && <span className="cart-count">{cartCount}</span>}
             </button>
             <button
               className="mobile-menu-btn"

@@ -4,6 +4,7 @@ import cors from "cors";
 import { handleDemo } from "./routes/demo";
 import * as productsApi from "./products-api";
 import * as paymentApi from "./payment-api";
+import * as authApi from "./auth-api";
 
 export function createServer() {
   const app = express();
@@ -12,6 +13,58 @@ export function createServer() {
   app.use(cors());
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
+
+  // ========================
+  // AUTH API (User Login/Signup)
+  // ========================
+
+  // User Signup
+  app.post("/api/auth/signup", async (req, res) => {
+    try {
+      const result = await authApi.signup(req.body);
+      res.json(result);
+    } catch (error) {
+      res.status(500).json({ success: false, error: "Signup failed" });
+    }
+  });
+
+  // User Login
+  app.post("/api/auth/login", async (req, res) => {
+    try {
+      const result = await authApi.login(req.body);
+      res.json(result);
+    } catch (error) {
+      res.status(500).json({ success: false, error: "Login failed" });
+    }
+  });
+
+  // Verify Token
+  app.post("/api/auth/verify", async (req, res) => {
+    try {
+      const token = req.headers.authorization?.replace("Bearer ", "");
+      if (!token) {
+        return res.status(401).json({ success: false, error: "No token provided" });
+      }
+      const result = await authApi.verifyToken(token);
+      res.json(result);
+    } catch (error) {
+      res.status(500).json({ success: false, error: "Verification failed" });
+    }
+  });
+
+  // Logout
+  app.post("/api/auth/logout", async (req, res) => {
+    try {
+      const token = req.headers.authorization?.replace("Bearer ", "");
+      if (!token) {
+        return res.status(401).json({ success: false, error: "No token provided" });
+      }
+      const result = await authApi.logout(token);
+      res.json(result);
+    } catch (error) {
+      res.status(500).json({ success: false, error: "Logout failed" });
+    }
+  });
 
   // ========================
   // PRODUCTS API (from Odoo)
@@ -103,6 +156,16 @@ export function createServer() {
       res.json(result);
     } catch (error) {
       res.status(500).json({ success: false, error: "Failed to capture payment" });
+    }
+  });
+
+  // Create order (for bank transfer and other payment methods)
+  app.post("/api/orders/create", async (req, res) => {
+    try {
+      const result = await paymentApi.createOrder(req.body);
+      res.json(result);
+    } catch (error) {
+      res.status(500).json({ success: false, error: "Failed to create order" });
     }
   });
 
