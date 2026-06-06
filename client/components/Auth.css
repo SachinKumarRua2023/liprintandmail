@@ -23,7 +23,8 @@
   width: 100%;
   max-width: 450px;
   max-height: 90vh;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
   background: white;
   border-radius: 12px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
@@ -64,6 +65,8 @@
 
 .auth-container {
   padding: 40px 30px 30px;
+  overflow-y: auto;
+  flex: 1;
 }
 
 .auth-header {
