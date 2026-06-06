@@ -1,5 +1,7 @@
 {
-  "buildCommand": "npm run build:client",
-  "outputDirectory": "dist/spa",
-  "public": true
+  "buildCommand": "npm run build",
+  "startCommand": "npm start",
+  "env": {
+    "NODE_ENV": "production"
+  }
 }
