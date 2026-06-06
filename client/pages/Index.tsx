@@ -8,6 +8,7 @@ import Auth from "@/components/Auth";
 import Cart from "@/components/Cart";
 import Checkout from "@/components/Checkout";
 import { useSiteConfig } from "@/hooks/useSiteConfig";
+import { useProducts } from "@/hooks/useProducts";
 import { ChevronRight, Star, TrendingUp, Zap, Award } from "lucide-react";
 import "@/styles/real-card-showcase.css";
 import "@/styles/real-basket-showcase.css";
@@ -15,11 +16,13 @@ import "@/styles/real-basket-showcase.css";
 interface Product {
   id: string;
   name: string;
-  rating: number;
-  reviews: number;
-  startingPrice: string;
-  image: string;
+  rating?: number;
+  reviews?: number;
+  price?: string;
+  startingPrice?: string;
+  image?: string;
   badge?: string;
+  [key: string]: any;
 }
 
 const heroProducts: Product[] = [
@@ -163,6 +166,10 @@ export default function Index() {
   const [user, setUser] = useState<any>(null);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [cartCount, setCartCount] = useState(0);
+
+  // Fetch real products from Odoo
+  const { products: realProducts, loading: productsLoading } = useProducts(5);
+  const { products: featuredProducts, loading: featuredLoading } = useProducts(5);
 
   // Load user and cart on mount
   useEffect(() => {
@@ -337,8 +344,13 @@ export default function Index() {
               Most Loved Brand Builders
             </h2>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-              {heroProducts.map((product) => (
+            {productsLoading ? (
+              <div className="text-center py-12">
+                <p className="text-gray-600">Loading products...</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                {(realProducts.length > 0 ? realProducts : heroProducts).map((product) => (
                 <div
                   key={product.id}
                   className="group hover:shadow-lg transition rounded-xl overflow-hidden bg-white border border-gray-200"
@@ -363,7 +375,7 @@ export default function Index() {
                     <div className="mb-3">{renderStars(product.rating)}</div>
 
                     <p className="text-lg font-bold text-brand-orange mb-4">
-                      {product.startingPrice}
+                      {(product as any).price || (product as any).startingPrice || "$0.00"}
                     </p>
 
                     <button
@@ -378,7 +390,8 @@ export default function Index() {
                   </div>
                 </div>
               ))}
-            </div>
+              </div>
+            )}
           </div>
         </section>
 
@@ -435,8 +448,13 @@ export default function Index() {
               </Link>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-              {featuredProducts.map((product) => (
+            {featuredLoading ? (
+              <div className="text-center py-12">
+                <p className="text-gray-600">Loading products...</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                {(featuredProducts.length > 0 ? featuredProducts : []).map((product) => (
                 <div
                   key={product.id}
                   className="group hover:shadow-lg transition rounded-xl overflow-hidden bg-white border border-gray-200"
@@ -453,7 +471,7 @@ export default function Index() {
                     <div className="mb-3">{renderStars(product.rating)}</div>
 
                     <p className="text-lg font-bold text-brand-orange mb-4">
-                      {product.startingPrice}
+                      {(product as any).price || (product as any).startingPrice || "$0.00"}
                     </p>
 
                     <button
@@ -468,7 +486,8 @@ export default function Index() {
                   </div>
                 </div>
               ))}
-            </div>
+              </div>
+            )}
           </div>
         </section>
 

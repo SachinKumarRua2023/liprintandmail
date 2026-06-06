@@ -18,19 +18,38 @@ const ODOO_CONFIG = {
  */
 export async function getAllProducts(limit = 100, offset = 0) {
   try {
-    const response = await axios.get(
-      `${ODOO_CONFIG.url}/api/res.product`,
-      {
-        headers: {
-          Authorization: `Bearer ${ODOO_CONFIG.apiKey}`,
-          'Content-Type': 'application/json',
-        },
-        params: {
-          limit,
-          offset,
+    // Try REST API first (Odoo 16+)
+    let response;
+    try {
+      response = await axios.get(
+        `${ODOO_CONFIG.url}/api/product.template`,
+        {
+          headers: {
+            Authorization: `Bearer ${ODOO_CONFIG.apiKey}`,
+            'Content-Type': 'application/json',
+          },
+          params: {
+            limit,
+            offset,
+          }
         }
-      }
-    );
+      );
+    } catch (e) {
+      // Fallback to alternative endpoint
+      response = await axios.get(
+        `${ODOO_CONFIG.url}/api/res.product`,
+        {
+          headers: {
+            Authorization: `Bearer ${ODOO_CONFIG.apiKey}`,
+            'Content-Type': 'application/json',
+          },
+          params: {
+            limit,
+            offset,
+          }
+        }
+      );
+    }
 
     const products = response.data?.data || [];
 
@@ -54,15 +73,28 @@ export async function getAllProducts(limit = 100, offset = 0) {
  */
 export async function getProductById(productId: string) {
   try {
-    const response = await axios.get(
-      `${ODOO_CONFIG.url}/api/res.product/${productId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${ODOO_CONFIG.apiKey}`,
-          'Content-Type': 'application/json',
+    let response;
+    try {
+      response = await axios.get(
+        `${ODOO_CONFIG.url}/api/product.template/${productId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${ODOO_CONFIG.apiKey}`,
+            'Content-Type': 'application/json',
+          }
         }
-      }
-    );
+      );
+    } catch (e) {
+      response = await axios.get(
+        `${ODOO_CONFIG.url}/api/res.product/${productId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${ODOO_CONFIG.apiKey}`,
+            'Content-Type': 'application/json',
+          }
+        }
+      );
+    }
 
     const product = response.data?.data || response.data;
     return {
